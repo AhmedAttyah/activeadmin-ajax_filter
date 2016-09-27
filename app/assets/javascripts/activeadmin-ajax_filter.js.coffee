@@ -4,8 +4,8 @@ $ ->
       select = $(select)
       valueField = select.data('value-field')
       searchFields = select.data('search-fields').split(' ')
+      listFields = select.data('list-fields').split(' ');
       staticRansack = select.data('static-ransack')
-
       ajaxFields = select.data('ajax-search-fields')
       if ajaxFields
         ajaxFields = ajaxFields.split(' ')
@@ -49,15 +49,15 @@ $ ->
         create: false
         render:
           option: (item, escape) ->
-            html = searchFields.map (field, index)->
-              value = escape(item[field])
+            html = listFields.map (field, index)->
+              value = escape(item[field]).toString()
+              if item[field] != undefined
+                if index == 0
+                  klass = 'primary'
+                else
+                  klass = 'secondary'
 
-              if index == 0
-                klass = 'primary'
-              else
-                klass = 'secondary'
-
-              "<span class='#{klass}'>#{value}</span>"
+                "<span class='#{klass}'>#{value}</span>"
 
             "<div class='item'>#{html.join('')}</div>"
 
