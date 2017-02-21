@@ -1,7 +1,14 @@
 $ ->
+
   apply_filter_ajax_select = () ->
     $('.filter_ajax_select select, .ajax_select select').each (_, select) ->
       select = $(select)
+      select_id = select.attr('id')
+      select_id = "#s2id_#{select_id}"
+      $(select_id).hide()
+      $('.has_many_container').on('DOMNodeInserted', select_id, ->
+        $(select_id).hide()
+      )
       valueField = select.data('value-field')
       searchFields = select.data('search-fields').split(' ')
       listFields = select.data('list-fields').split(' ');
